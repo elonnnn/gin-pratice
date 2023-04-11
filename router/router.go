@@ -5,9 +5,12 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/gin-server/common"
 	v1 "github.com/gin-server/controller/v1"
 	v2 "github.com/gin-server/controller/v2"
+	"github.com/gin-server/validators"
+	"github.com/go-playground/validator/v10"
 )
 
 func InitRouter(r *gin.Engine) {
@@ -22,6 +25,11 @@ func InitRouter(r *gin.Engine) {
 	{
 		GroupV2.Any("/product/add", v2.AddProduct)
 		GroupV2.Any("/member/add", v2.AddMember)
+	}
+
+	// 绑定验证器
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("NameValid", validators.NameValid)
 	}
 }
 
