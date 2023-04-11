@@ -3,8 +3,6 @@ package middleware
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"os"
 	"path"
 	"strconv"
 	"time"
@@ -39,17 +37,17 @@ func LoggerToFile() gin.HandlerFunc {
 	// // 日志文件
 	fileName := path.Join(logFilePath, logFileName)
 
-	// // 写入文件
-	src, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
-	if err != nil {
-		fmt.Println("err", err)
-	}
+	// // 【单文件写入】
+	// src, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+	// if err != nil {
+	// 	fmt.Println("err", err)
+	// }
 
 	// 实例化
 	logger := logrus.New()
 
-	//設置輸出
-	logger.Out = src
+	//設置輸出【单文件写入】
+	// logger.SetOutput(os.Stdout)
 
 	// 设置日志级别
 	logger.SetLevel(logrus.DebugLevel)

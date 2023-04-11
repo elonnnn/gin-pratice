@@ -5,7 +5,7 @@ app:
   expired: 120
 logs:
   path: "D:/work/logs"
-  name: "system.log"
+  name: "gin_server"
   max_size: 5
 mysql:
   host: "127.0.0.1"
