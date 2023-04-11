@@ -1,0 +1,23 @@
+app:
+  port: ":8080"
+  name: "ginServer"
+  secret: "6YJSuc50uJ18zj45"
+  expired: 120
+logs:
+  path: "D:/work/logs"
+  name: "system.log"
+  max_size: 5
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "123456"
+  dbname: "web_app"
+  max_open_conns: 200
+  max_idle_conns: 50
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  db: 0
+  password: ""
+  pool_size: 100
