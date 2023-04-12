@@ -15,7 +15,7 @@ func AddMember(c *gin.Context) {
 	if err := c.ShouldBind(&mem); err != nil {
 		res.SetCode(code.ERROR)
 		res.SetMessage(validators.GetErrorMsg(mem, err))
-		c.JSON(http.StatusForbidden, res)
+		c.JSON(http.StatusOK, res)
 		c.Abort()
 		return
 	}

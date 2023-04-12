@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/gin-server/api"
 	"github.com/gin-server/common"
 	v1 "github.com/gin-server/controller/v1"
 	v2 "github.com/gin-server/controller/v2"
@@ -15,6 +16,8 @@ import (
 
 func InitRouter(r *gin.Engine) {
 	r.GET("/sn", SignDemo)
+	// Login Api
+	r.POST("user/login", api.ApiGroupApp.UserApi.Login)
 	// v1
 	GroupV1 := r.Group("/v1")
 	{

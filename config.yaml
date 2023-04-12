@@ -1,8 +1,14 @@
 app:
-  port: ":8080"
-  name: "ginServer"
+  port: :8080
+  name: ginServer
   secret: "6YJSuc50uJ18zj45"
   expired: 120
+# jwt configuration
+jwt:
+  signing-key: ginServer
+  expires-time: 7d
+  buffer-time: 1d
+  issuer: qmPlus
 logs:
   path: "D:/work/logs"
   name: "gin_server"
