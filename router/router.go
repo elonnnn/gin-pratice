@@ -10,6 +10,7 @@ import (
 	"github.com/gin-server/common"
 	v1 "github.com/gin-server/controller/v1"
 	v2 "github.com/gin-server/controller/v2"
+	"github.com/gin-server/middleware"
 	"github.com/gin-server/validators"
 	"github.com/go-playground/validator/v10"
 )
@@ -24,7 +25,8 @@ func InitRouter(r *gin.Engine) {
 		GroupV1.Any("/product/add", v1.AddProduct)
 		GroupV1.Any("/member/add", v1.AddMember)
 	}
-	GroupV2 := r.Group("/v2", common.VerifySign)
+	GroupV2 := r.Group("/v2")
+	GroupV2.Use(middleware.JWTAuth())
 	{
 		GroupV2.Any("/product/add", v2.AddProduct)
 		GroupV2.Any("/member/add", v2.AddMember)

@@ -4,9 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-server/common/response"
 	"github.com/gin-server/global"
-	"github.com/gin-server/jwt"
 	"github.com/gin-server/model"
 	"github.com/gin-server/utils"
+	"github.com/gin-server/utils/jwt"
+	uuid "github.com/satori/go.uuid"
 )
 
 type UserApi struct {
@@ -31,19 +32,23 @@ func (u *UserApi) Login(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	uuid := uuid.NewV4()
 
 	u.TokenNext(c, jwt.BaseClaims{
 		Username:    l.Username,
 		NickName:    l.Username,
 		AuthorityId: 1,
+		UUID:        uuid,
 	})
 }
 
 func (u *UserApi) TokenNext(c *gin.Context, user jwt.BaseClaims) {
-	j := &jwt.JWT{SigningKey: []byte(global.GVA_VP.GetString("jwt.buffer-time"))} // 唯一签名
+	j := &jwt.JWT{SigningKey: []byte(global.GVA_VP.GetString("jwt.signing-key"))} // 唯一签名
 	claims := j.CreateClaims(jwt.BaseClaims{
-		NickName: user.NickName,
-		Username: user.Username,
+		NickName:    user.NickName,
+		Username:    user.Username,
+		AuthorityId: user.AuthorityId,
+		UUID:        user.UUID,
 	})
 	token, err := j.CreateToken(claims)
 	if err != nil {
